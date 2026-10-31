@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samarth Campus – College Student Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5F9;--surface:#fff;--ink:#14243B;--mute:#5A6B82;--line:#D9E0EA;--brand:#16417A;--on:#fff;--soft:#E7EEF8;--ok:#0F7A4B;--warn:#9A5800;--bad:#B3261E;--okbg:#E2F4EB;--warnbg:#FFF0D9;--badbg:#FBE5E3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1726;--surface:#16233A;--ink:#E8EEF7;--mute:#9DB0C8;--line:#2A3C58;--brand:#7FB0F5;--on:#0E1726;--soft:#1D2E4A;--ok:#5FD39B;--warn:#F2B04E;--bad:#FF8A80;--okbg:#14352A;--warnbg:#3A2B10;--badbg:#3F1D1B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1726;--surface:#16233A;--ink:#E8EEF7;--mute:#9DB0C8;--line:#2A3C58;--brand:#7FB0F5;--on:#0E1726;--soft:#1D2E4A;--ok:#5FD39B;--warn:#F2B04E;--bad:#FF8A80;--okbg:#14352A;--warnbg:#3A2B10;--badbg:#3F1D1B;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;margin:0 0 .4em;line-height:1.2}
+h1{font-size:2rem}h2{font-size:1.5rem}h3{font-size:1.1rem}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.btn{background:var(--brand);color:var(--on);border:0;border-radius:6px;padding:.6em 1.1em;font-weight:600;cursor:pointer}
+.btn.alt{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn.ok{background:var(--ok);color:var(--on)}.btn.bad{background:var(--bad);color:var(--on)}
+.btn.sm{padding:.3em .8em;font-size:.88em}
+label{display:block;font-weight:600;font-size:.9em;margin:.9em 0 .3em}
+input,select,textarea{width:100%;padding:.6em .7em;border:1.5px solid var(--line);border-radius:6px;background:var(--surface)}
+input[type=checkbox]{width:auto}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.login{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{background:var(--brand);color:var(--on);padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:32px}
+.hero h1{font-size:2.6rem}.hero p{max-width:46ch;opacity:.92}
+.hero ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.hero li{border-left:3px solid currentColor;padding-left:12px;opacity:.95}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.formside{display:grid;place-items:center;padding:32px 20px}
+.formside .card{width:100%;max-width:400px}
+.tabs{display:flex;gap:6px;background:var(--soft);padding:4px;border-radius:8px;margin-bottom:8px}
+.tabs button{flex:1;border:0;background:none;padding:.5em;border-radius:6px;font-weight:600;cursor:pointer;color:var(--mute)}
+.tabs button[aria-pressed=true]{background:var(--surface);color:var(--ink)}
+.hint{font-size:.85em;color:var(--mute);margin-top:12px}
+.shell{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+nav.side{background:var(--surface);border-right:1px solid var(--line);padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+nav.side .brand{font-family:Newsreader,serif;font-weight:600;font-size:1.25rem;padding:0 10px 14px}
+nav.side a{padding:.55em .8em;border-radius:6px;color:var(--ink);text-decoration:none;font-weight:500}
+nav.side a[aria-current=page]{background:var(--soft);color:var(--brand);font-weight:700}
+nav.side .grow{flex:1}
+main{padding:24px clamp(16px,3vw,36px);min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.stat b{display:block;font-size:1.8rem;font-family:Newsreader,serif}
+.stat span{color:var(--mute);font-size:.9em}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{text-align:left;padding:.65em .6em;border-bottom:1px solid var(--line)}
+th{font-size:.85em;color:var(--mute);font-weight:600}
+.pill{display:inline-block;padding:.1em .7em;border-radius:99px;font-size:.82em;font-weight:600}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.two{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.notice{padding:12px 0;border-bottom:1px solid var(--line)}.notice:last-child{border:0}
+.notice small{color:var(--mute)}
+.ticket{border:2px dashed var(--brand);border-radius:10px;padding:18px;margin-top:14px}
+.apply{max-width:640px;margin:0 auto;padding:32px 16px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:.7em 1.2em;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+#toast.on{opacity:1}
+dialog{border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);max-width:380px;width:90%}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+@media(max-width:800px){.login,.shell,.two{grid-template-columns:1fr}.hero{padding:28px 20px}.hero h1{font-size:2rem}
+nav.side{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--line);padding:10px}nav.side .brand{width:100%;padding:0 6px 4px}nav.side .grow{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="dlg"></dialog>
+<script>
+const COLLEGE="Samarth Campus";
+const S={user:null,
+ notices:[{t:"Semester III exam forms open until 15 November",d:"29 Oct 2026"},{t:"Fee payment last date extended to 10 November",d:"27 Oct 2026"},{t:"Library closed on Sunday for stock verification",d:"24 Oct 2026"}],
+ apps:[{id:"APP-1042",name:"Riya Shah",course:"B.Com",pct:84,docs:false,status:"Pending"},{id:"APP-1043",name:"Kabir Mehta",course:"B.Sc IT",pct:78,docs:true,status:"Pending"},{id:"APP-1044",name:"Neha Joshi",course:"B.A.",pct:71,docs:true,status:"Approved"}],
+ fees:[{n:"Tuition fee",a:18000,paid:true,rc:"RCP-88231"},{n:"Examination fee",a:1200,paid:false},{n:"Library and gymkhana",a:1500,paid:false}],
+ exam:null,
+ subj:["Financial Accounting","Business Law","Corporate Finance","Statistics","Marketing Management"],
+ results:[["Financial Accounting",68,"A"],["Business Law",61,"B+"],["Statistics",74,"A"],["Marketing Management",57,"B"],["Business Communication",80,"A+"]]};
+const $=s=>document.querySelector(s),inr=n=>"₹"+n.toLocaleString("en-IN");
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2600)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let role="student";
+const stuNav=[["s-home","Dashboard"],["s-profile","My profile"],["s-fees","Fees"],["s-exam","Exam form"],["s-results","Results"],["s-notices","Notices"]];
+const admNav=[["a-home","Overview"],["a-adm","Admissions"],["a-fees","Fee dues"],["a-notices","Notices"]];
+function shell(page,title,body,sub){
+ const nav=S.user.role==="student"?stuNav:admNav;
+ return `<div class="shell"><nav class="side" aria-label="Main"><div class="brand">${COLLEGE}</div>
+ ${nav.map(([k,l])=>`<a href="#${k}" ${k===page?'aria-current="page"':""}>${l}</a>`).join("")}
+ <div class="grow"></div><a href="#login" id="out">Sign out</a></nav>
+ <main><div class="top"><div><h1>${title}</h1>${sub?`<div style="color:var(--mute)">${sub}</div>`:""}</div>
+ <div class="row"><span class="pill ok">${S.user.role==="student"?"Student":"Staff"}</span><strong>${S.user.name}</strong></div></div>${body}</main></div>`}
+const noticeList=()=>S.notices.map(n=>`<div class="notice">${esc(n.t)}<br><small>${n.d}</small></div>`).join("");
+const pend=()=>S.fees.filter(f=>!f.paid);
+function login(){
+ return `<div class="login"><section class="hero"><div><h2 style="opacity:.85">${COLLEGE}</h2><h1>One place for admission, fees, exams and results.</h1>
+ <p>Sign in with your college ID. New to the college? Start your admission application online and track it here.</p></div>
+ <ul><li>Admission applications close 20 November</li><li>Semester III exam forms open now</li><li>Fee receipts are available as soon as you pay</li></ul></section>
+ <section class="formside"><div class="card"><h2>Sign in</h2>
+ <div class="tabs" role="group" aria-label="Account type"><button aria-pressed="${role==="student"}" data-r="student">Student</button><button aria-pressed="${role==="staff"}" data-r="staff">Staff</button></div>
+ <form id="lf"><label for="u">${role==="student"?"PRN / student ID":"Staff ID"}</label><input id="u" autocomplete="username" required>
+ <label for="p">Password</label><input id="p" type="password" autocomplete="current-password" required>
+ <p style="margin:16px 0 0"><button class="btn" style="width:100%">Sign in</button></p></form>
+ <p class="hint">Demo login: ${role==="student"?"student / 1234":"admin / admin"}</p>
+ <p style="margin:12px 0 0"><a href="#apply">Apply for admission</a></p></div></section></div>`}
+function apply(){
+ return `<div class="apply"><p><a href="#login">Back to sign in</a></p><h1>Admission application</h1><p style="color:var(--mute)">Fill this once. The college office verifies your documents and updates your status.</p>
+ <form class="card" id="af"><label for="n">Full name (as on marksheet)</label><input id="n" required>
+ <div class="two"><div><label for="e">Email</label><input id="e" type="email" required></div><div><label for="ph">Mobile number</label><input id="ph" inputmode="numeric" pattern="[0-9]{10}" required></div></div>
+ <div class="two"><div><label for="c">Course</label><select id="c"><option>B.Com</option><option>B.Sc IT</option><option>B.A.</option><option>B.Sc Computer Science</option></select></div>
+ <div><label for="pc">12th percentage</label><input id="pc" type="number" min="35" max="100" step="0.01" required></div></div>
+ <label for="d">12th marksheet (PDF or image)</label><input id="d" type="file" accept=".pdf,image/*" required>
+ <p style="margin-top:18px"><button class="btn">Submit application</button></p></form></div>`}
+function sHome(){
+ const due=pend().reduce((a,f)=>a+f.a,0);
+ return shell("s-home","Welcome, Aarav",`<div class="grid">
+ <div class="card stat"><span>Fees due</span><b>${inr(due)}</b><a href="#s-fees">${due?"Pay now":"All paid"}</a></div>
+ <div class="card stat"><span>Exam form</span><b>${S.exam?"Submitted":"Not filled"}</b><a href="#s-exam">${S.exam?"View hall ticket":"Fill form"}</a></div>
+ <div class="card stat"><span>Attendance</span><b>86%</b><span>Minimum required 75%</span></div></div>
+ <div class="card" style="margin-top:14px"><h3>Latest notices</h3>${noticeList()}</div>`,"B.Com, Semester III · PRN 2026001234")}
+function sProfile(){
+ const r=[["Name","Aarav Patil"],["PRN","2026001234"],["Course","B.Com, Semester III"],["Roll number","3045"],["Email","aarav.patil@example.com"],["Mobile","98XXXXXX21"],["Category","Open"],["Documents","Marksheet, ID proof, photo verified"]];
+ return shell("s-profile","My profile",`<div class="card"><table><tbody>${r.map(x=>`<tr><th scope="row" style="width:35%">${x[0]}</th><td>${x[1]}</td></tr>`).join("")}</tbody></table></div>`)}
+function sFees(){
+ const rows=S.fees.map((f,i)=>`<tr><td>${f.n}</td><td>${inr(f.a)}</td><td>${f.paid?`<span class="pill ok">Paid</span>`:`<span class="pill warn">Due</span>`}</td><td>${f.paid?`Receipt ${f.rc}`:`<button class="btn sm" data-pay="${i}">Pay ${inr(f.a)}</button>`}</td></tr>`).join("");
+ return shell("s-fees","Fees",`<div class="card tbl"><table><thead><tr><th>Fee head</th><th>Amount</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div><p class="hint">Payments here are simulated. A real build connects a gateway such as Razorpay.</p>`)}
+function sExam(){
+ const paid=S.fees[1].paid;
+ let body;
+ if(S.exam) body=`<div class="card"><h3>Hall ticket</h3><div class="ticket"><strong>${COLLEGE} · Semester III</strong><p style="margin:.4em 0">Aarav Patil · PRN 2026001234 · Seat no. B-${S.exam.seat}</p><ul style="margin:0;padding-left:18px">${S.exam.subs.map(s=>`<li>${s}</li>`).join("")}</ul></div></div>`;
+ else if(!paid) body=`<div class="card"><h3>Pay the examination fee first</h3><p>The exam form unlocks once the ${inr(1200)} examination fee is paid.</p><a class="btn" href="#s-fees" style="text-decoration:none;display:inline-block">Go to fees</a></div>`;
+ else body=`<form class="card" id="ef"><h3>Select your subjects</h3>${S.subj.map(s=>`<label style="font-weight:500"><input type="checkbox" name="sb" value="${s}" checked> ${s}</label>`).join("")}<p><button class="btn">Submit exam form</button></p></form>`;
+ return shell("s-exam","Exam form",body)}
+function sResults(){
+ const tot=S.results.reduce((a,r)=>a+r[1],0);
+ return shell("s-results","Results",`<div class="card tbl"><table><thead><tr><th>Subject</th><th>Marks (of 100)</th><th>Grade</th></tr></thead><tbody>${S.results.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join("")}</tbody><tfoot><tr><th>Total</th><th>${tot} / ${S.results.length*100}</th><th>${(tot/S.results.length).toFixed(1)}%</th></tr></tfoot></table></div>`,"Semester II, April 2026")}
+function aHome(){
+ const p=S.apps.filter(a=>a.status==="Pending").length,du=S.fees.filter(f=>!f.paid).length;
+ return shell("a-home","Office overview",`<div class="grid">
+ <div class="card stat"><span>Applications to review</span><b>${p}</b><a href="#a-adm">Open admissions</a></div>
+ <div class="card stat"><span>Approved admissions</span><b>${S.apps.filter(a=>a.status==="Approved").length}</b></div>
+ <div class="card stat"><span>Pending fee items</span><b>${du}</b><a href="#a-fees">View dues</a></div></div>
+ <div class="card" style="margin-top:14px"><h3>Notices on the student portal</h3>${noticeList()}</div>`)}
+function aAdm(){
+ const rows=S.apps.map((a,i)=>`<tr><td>${a.id}</td><td>${esc(a.name)}</td><td>${esc(a.course)}</td><td>${a.pct}%</td>
+ <td><label style="margin:0;font-weight:500"><input type="checkbox" data-doc="${i}" ${a.docs?"checked":""}> Verified</label></td>
+ <td><span class="pill ${a.status==="Approved"?"ok":a.status==="Rejected"?"bad":"warn"}">${a.status}</span></td>
+ <td class="row">${a.status==="Pending"?`<button class="btn ok sm" data-ap="${i}">Approve</button><button class="btn bad sm" data-rj="${i}">Reject</button>`:""}</td></tr>`).join("");
+ return shell("a-adm","Admissions",`<div class="card tbl"><table><thead><tr><th>ID</th><th>Name</th><th>Course</th><th>12th</th><th>Documents</th><th>Status</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`,"Approve only after documents are verified.")}
+function aFees(){
+ const rows=[["Aarav Patil","2026001234","Examination fee",1200],["Aarav Patil","2026001234","Library and gymkhana",1500],["Sana Khan","2026001302","Tuition fee",18000],["Dev Rao","2026001377","Examination fee",1200]];
+ const live=pend().map(f=>["Aarav Patil","2026001234",f.n,f.a]);
+ const list=[...live,...rows.slice(2)];
+ return shell("a-fees","Fee dues",`<div class="card tbl"><table><thead><tr><th>Student</th><th>PRN</th><th>Fee head</th><th>Amount due</th></tr></thead><tbody>${list.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${inr(r[3])}</td></tr>`).join("")}</tbody></table></div><p class="hint">Aarav’s rows update when he pays from the student side.</p>`)}
+function notices(isAdmin){
+ const form=isAdmin?`<form class="card" id="nf" style="margin-bottom:14px"><label for="nt">New notice</label><textarea id="nt" rows="2" required></textarea><p><button class="btn">Publish notice</button></p></form>`:"";
+ return shell(isAdmin?"a-notices":"s-notices","Notices",form+`<div class="card">${noticeList()}</div>`)}
+const routes={login,apply,"s-home":sHome,"s-profile":sProfile,"s-fees":sFees,"s-exam":sExam,"s-results":sResults,"a-home":aHome,"a-adm":aAdm,"a-fees":aFees,"a-notices":()=>notices(true),"s-notices":()=>notices(false)};
+function render(){
+ let r=location.hash.slice(1)||"login";
+ if(!routes[r])r="login";
+ if(r!=="login"&&r!=="apply"){
+  if(!S.user){r="login"}
+  else if(S.user.role==="student"&&r[0]==="a")r="s-home";
+  else if(S.user.role==="staff"&&r[0]==="s")r="a-home";
+ }
+ if(r==="login"&&S.user&&location.hash==="#login")S.user=null;
+ $("#app").innerHTML=routes[r]();
+ document.title=(r==="login"?"Sign in":r)+" – "+COLLEGE;
+ window.scrollTo(0,0);
+}
+addEventListener("hashchange",render);
+document.addEventListener("click",e=>{
+ const t=e.target.closest("button");if(!t)return;
+ if(t.dataset.r){role=t.dataset.r;render()}
+ if(t.dataset.pay!==undefined){const i=+t.dataset.pay,f=S.fees[i],d=$("#dlg");
+  d.innerHTML=`<h3>Confirm payment</h3><p>${f.n}: <strong>${inr(f.a)}</strong></p><p class="hint">Simulated gateway for the demo.</p><div class="row"><button class="btn" id="go">Pay ${inr(f.a)}</button><button class="btn alt" id="x">Cancel</button></div>`;d.showModal();
+  $("#x").onclick=()=>d.close();$("#go").onclick=()=>{f.paid=true;f.rc="RCP-"+(88232+i);d.close();toast("Payment received. Receipt "+f.rc);render()}}
+ if(t.dataset.ap!==undefined){const a=S.apps[+t.dataset.ap];if(!a.docs){toast("Verify the documents before approving.");return}a.status="Approved";toast(a.name+" approved");render()}
+ if(t.dataset.rj!==undefined){S.apps[+t.dataset.rj].status="Rejected";toast("Application rejected");render()}
+});
+document.addEventListener("change",e=>{if(e.target.dataset.doc!==undefined)S.apps[+e.target.dataset.doc].docs=e.target.checked});
+document.addEventListener("submit",e=>{
+ e.preventDefault();const id=e.target.id;
+ if(id==="lf"){const u=$("#u").value.trim().toLowerCase(),p=$("#p").value;
+  if(role==="student"&&u==="student"&&p==="1234"){S.user={role:"student",name:"Aarav Patil"};location.hash="s-home"}
+  else if(role==="staff"&&u==="admin"&&p==="admin"){S.user={role:"staff",name:"Office Admin"};location.hash="a-home"}
+  else toast("ID or password is incorrect. Check the demo login below the form.")}
+ if(id==="af"){const ref="APP-"+(1045+S.apps.length-3);S.apps.push({id:ref,name:$("#n").value,course:$("#c").value,pct:+$("#pc").value,docs:false,status:"Pending"});
+  $("#app").innerHTML=`<div class="apply"><div class="card"><h2>Application submitted</h2><p>Your reference number is <strong>${ref}</strong>. The office will verify your documents and update your status.</p><a class="btn" href="#login" style="text-decoration:none;display:inline-block">Back to sign in</a></div></div>`}
+ if(id==="ef"){const subs=[...document.querySelectorAll("[name=sb]:checked")].map(x=>x.value);if(!subs.length){toast("Select at least one subject.");return}S.exam={subs,seat:Math.floor(100+Math.random()*800)};toast("Exam form submitted");render()}
+ if(id==="nf"){S.notices.unshift({t:$("#nt").value,d:new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})});toast("Notice published");render()}
+});
+render();
+</script>
+</body>
+</html>
